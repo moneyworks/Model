@@ -693,7 +693,7 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
     /**
      * Replicate model with empty attribute filters
      *
-     * @return AbstractModel
+     * @return Model
      */
     public function clean()
     {
@@ -708,13 +708,13 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
     /**
      * Clone the model into a new, non-existing instance.
      *
-     * @return AbstractModel
+     * @return Model
      */
     public function replicate()
     {
         $instance = new static;
 
-        return $instance->fill($this->attributes);
+        return $instance->forceFill($this->attributes);
     }
 
     /**
