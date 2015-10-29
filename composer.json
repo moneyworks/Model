@@ -1,0 +1,24 @@
+{
+  "name": "ypppa/model",
+  "description": "Abstract Eloquent style Model.",
+  "license": "MIT",
+  "type": "library",
+  "authors": [
+    {
+      "name": "Yuri Gaidoba",
+      "email": "ypa.indiv@gmail.com"
+    }
+  ],
+  "require": {
+    "illuminate/contracts": "^5.1",
+    "php": ">=5.5.9"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "ypppa\\Model\\": "src/"
+    }
+  }
+}
