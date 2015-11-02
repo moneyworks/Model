@@ -75,7 +75,9 @@ class Helper
     {
         $value = ucwords(str_replace(['-', '_'], ' ', $value));
 
-        if ($lc_first) $value = lcfirst($value);
+        if ($lc_first) {
+            $value = lcfirst($value);
+        }
 
         return str_replace(' ', '', $value);
     }
