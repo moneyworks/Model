@@ -320,6 +320,15 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
     }
 
     /**
+     * @param $key
+     * @return string
+     */
+    private static function caseFormat($key)
+    {
+        return static::$snakeAttributes ? Helper::snake($key) : Helper::studly($key, static::$lcFirst);
+    }
+
+    /**
      * Dynamically retrieve attributes on the model.
      *
      * @param  string $key
@@ -513,7 +522,7 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
         // the mutator for the attribute. We cache off every mutated attributes so
         // we don't have to constantly check on attributes that actually change.
         foreach ($mutatedAttributes as $key) {
-            $key = static::$snakeAttributes ? Helper::snake($key) : Helper::studly($key, static::$lcFirst);
+            $key = self::caseFormat($key);
             if (!array_key_exists($key, $attributes)) continue;
             $attributes[$key] = $this->mutateAttributeForArray(
                 $key, $attributes[$key]
@@ -523,7 +532,7 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
         // the values to their appropriate type. If the attribute has a mutator we
         // will not perform the cast on those attributes to avoid any confusion.
         foreach ($this->casts as $key => $value) {
-            $key = static::$snakeAttributes ? Helper::snake($key) : Helper::studly($key, static::$lcFirst);
+            $key = self::caseFormat($key);
             if (!array_key_exists($key, $attributes) ||
                 in_array($key, $mutatedAttributes)
             ) continue;
@@ -535,7 +544,7 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
         // as these attributes are not really in the attributes array, but are run
         // when we need to array or JSON the model for convenience to the coder.
         foreach ($this->getArrayableAppends() as $key) {
-            $key = static::$snakeAttributes ? Helper::snake($key) : Helper::studly($key, static::$lcFirst);
+            $key = self::caseFormat($key);
             $attributes[$key] = $this->mutateAttributeForArray($key, null);
         }
 
@@ -570,7 +579,7 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
 
         $result = [];
         foreach ($attributes as $key => $value) {
-            $key = static::$snakeAttributes ? Helper::snake($key) : Helper::studly($key, static::$lcFirst);
+            $key = self::caseFormat($key);
             $result[$key] = $value;
         }
 
