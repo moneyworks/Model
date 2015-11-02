@@ -148,7 +148,9 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
     {
         $totallyGuarded = $this->totallyGuarded();
         foreach ($this->fillableFromArray($attributes) as $key => $value) {
-            if ($totallyGuarded) break;
+            if ($totallyGuarded) {
+                break;
+            }
             // The developers may choose to place some attributes in the "fillable"
             // array, which means only those attributes may be set through mass
             // assignment to the model, and all others will just be ignored.
@@ -442,7 +444,9 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
      */
     protected function castAttribute($key, $value)
     {
-        if (is_null($value)) return $value;
+        if (is_null($value)) {
+            return $value;
+        }
         switch ($this->getCastType($key)) {
             case 'int':
             case 'integer':
@@ -523,7 +527,9 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
         // we don't have to constantly check on attributes that actually change.
         foreach ($mutatedAttributes as $key) {
             $key = self::caseFormat($key);
-            if (!array_key_exists($key, $attributes)) continue;
+            if (!array_key_exists($key, $attributes)) {
+                continue;
+            }
             $attributes[$key] = $this->mutateAttributeForArray(
                 $key, $attributes[$key]
             );
@@ -535,7 +541,9 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
             $key = self::caseFormat($key);
             if (!array_key_exists($key, $attributes) ||
                 in_array($key, $mutatedAttributes)
-            ) continue;
+            ) {
+                continue;
+            }
             $attributes[$key] = $this->castAttribute(
                 $key, $attributes[$key]
             );
@@ -617,7 +625,9 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
             if (strpos($method, 'Attribute') !== false &&
                 preg_match('/^get(.+)Attribute$/', $method, $matches)
             ) {
-                if (static::$snakeAttributes) $matches[1] = Helper::snake($matches[1]);
+                if (static::$snakeAttributes) {
+                    $matches[1] = Helper::snake($matches[1]);
+                }
                 $mutatedAttributes[] = lcfirst($matches[1]);
             }
         }
