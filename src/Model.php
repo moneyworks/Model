@@ -437,16 +437,16 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
         switch ($this->getCastType($key)) {
             case 'int':
             case 'integer':
-                return (int)$value;
+                return (int) $value;
             case 'real':
             case 'float':
             case 'double':
-                return (float)$value;
+                return (float) $value;
             case 'string':
-                return (string)$value;
+                return (string) $value;
             case 'bool':
             case 'boolean':
-                return (bool)$value;
+                return (bool) $value;
             case 'object':
                 return json_decode($value);
             case 'array':
@@ -540,7 +540,7 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
         }
 
         return static::$filterNullValues
-            ? array_filter($attributes, function ($value) {
+            ? array_filter($attributes, function($value) {
                 return !is_null($value);
             })
             : $attributes;
@@ -743,7 +743,7 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
         // the model in a variable, which we will then use in the closure.
         $model = $this;
 
-        return static::unguarded(function () use ($model, $attributes) {
+        return static::unguarded(function() use ($model, $attributes) {
             return $model->fill($attributes);
         });
     }
@@ -904,7 +904,7 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
      */
     public function newInstance($attributes = [])
     {
-        return new static((array)$attributes);
+        return new static((array) $attributes);
     }
 
     /**
