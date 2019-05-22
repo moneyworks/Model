@@ -1,11 +1,9 @@
 <?php namespace ypppa\Model;
 
 use ArrayAccess;
-use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\Contracts\Support\Jsonable;
 use JsonSerializable;
 
-abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializable
+abstract class Model implements ArrayAccess, JsonSerializable
 {
     /**
      * Indicates whether attributes are snake cased on arrays.
@@ -645,7 +643,7 @@ abstract class Model implements ArrayAccess, Arrayable, Jsonable, JsonSerializab
     {
         $value = $this->mutateAttribute($key, $value);
 
-        return $value instanceof Arrayable ? $value->toArray() : $value;
+        return $value instanceof ArrayableInterface ? $value->toArray() : $value;
     }
 
     /**
